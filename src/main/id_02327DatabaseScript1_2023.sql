@@ -90,44 +90,28 @@ Topic_Title
 FROM Edition NATURAL JOIN Item WHERE ((unix_timestamp(Date_Time)<=unix_timestamp(Time_Item_Given))
 AND ((unix_timestamp(Date_Time)+Duration)>=unix_timestamp(Time_Item_Given)));
 
+
 CREATE VIEW viewsFromEdition AS
 SELECT
-Nr_of_Viewers,
-Date_Time,
-Duration
+    Nr_of_Viewers 'Number of viewers',
+    Date_Time 'Edition time aired',
+    Duration 'Duration'
 FROM Edition NATURAL JOIN Item WHERE ((unix_timestamp(Date_Time)<=unix_timestamp(Time_Item_Given))
-AND ((unix_timestamp(Date_Time)+Duration)>=unix_timestamp(Time_Item_Given)));
+    AND ((unix_timestamp(Date_Time)+Duration)>=unix_timestamp(Time_Item_Given)));
 
 CREATE VIEW viewsFromItem AS
 SELECT
-Nr_of_Viewers
-Topic_Title
-FROM Edition NATURAL JOIN Item WHERE ((unix_timestamp(Date_Time)<=unix_timestamp(Time_Item_Given))
-AND ((unix_timestamp(Date_Time)+Duration)>=unix_timestamp(Time_Item_Given)));
+    Nr_of_Viewers,
+    Topic_Title
+    Item_Description
+FROM Item;
 
 
-CREATE VIEW viewsFromTopic AS
+CREATE VIEW AVGviewsFromTopic AS
 SELECT
 AVG(Nr_of_Viewers) 'Average number if viewers',
 Topic_Title 'Topic title'
 FROM Item;
-
-
-CREATE VIEW viewsFromEdition AS
-SELECT
-Nr_of_Viewers 'Number of viewers',
-Date_Time 'Edition time aired',
-Duration 'Duration',
-Item_Description
-FROM Edition NATURAL JOIN Item WHERE ((unix_timestamp(Date_Time)<=unix_timestamp(Time_Item_Given))
-AND ((unix_timestamp(Date_Time)+Duration)>=unix_timestamp(Time_Item_Given)));
-
-CREATE VIEW viewsFromItem AS
-SELECT
-Nr_of_Viewers,
-Topic_Title
-FROM Item;
-
 
 #THIS NOW WORKS
 CREATE VIEW workContactInfo AS
@@ -137,21 +121,8 @@ CREATE VIEW workContactInfo AS
     Phone_Number 'Work phone',
     Email 'Work email'
     FROM
-        email NATURAL JOIN phone INNER JOIN journalist j on Email.CPR = j.CPR
+        email NATURAL JOIN phone INNER JOIN journalist j ON Email.CPR = j.CPR
     WHERE (((Description_Phone) = 'WORK') AND (Description_Email = 'WORK'));
-
-#DROP VIEW workContactInfo;
-
-CREATE VIEW allContactInfo AS
-SELECT
-    First_Name,
-    Last_Name,
-    Phone_Number,
-    Description_Phone,
-    Email,
-    Description_Email
-FROM
-    email NATURAL JOIN phone NATURAL JOIN journalist;
 
 
 
