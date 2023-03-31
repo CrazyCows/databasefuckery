@@ -124,9 +124,35 @@ AND ((unix_timestamp(Date_Time)+Duration)>=unix_timestamp(Time_Item_Given)));
 
 CREATE VIEW viewsFromItem AS
 SELECT
-Nr_of_Viewers
+Nr_of_Viewers,
 Topic_Title
 FROM Item;
+
+
+#THIS NOW WORKS
+CREATE VIEW workContactInfo AS
+    SELECT
+    First_Name,
+    Last_Name,
+    Phone_Number 'Work phone',
+    Email 'Work email'
+    FROM
+        email NATURAL JOIN phone INNER JOIN journalist j on Email.CPR = j.CPR
+    WHERE (((Description_Phone) = 'WORK') AND (Description_Email = 'WORK'));
+
+#DROP VIEW workContactInfo;
+
+CREATE VIEW allContactInfo AS
+SELECT
+    First_Name,
+    Last_Name,
+    Phone_Number,
+    Description_Phone,
+    Email,
+    Description_Email
+FROM
+    email NATURAL JOIN phone NATURAL JOIN journalist;
+
 
 
 DELIMITER //
