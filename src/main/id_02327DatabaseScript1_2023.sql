@@ -90,10 +90,10 @@ FROM Edition FULL JOIN Item WHERE ((unix_timestamp(Date_Time)<=unix_timestamp(Ti
 
 CREATE VIEW viewsFromTopic AS
 SELECT
-Nr_of_Viewers 'Number of views',
+SUM(Nr_of_Viewers) OVER (PARTITION BY Topic_Title) 'Total number of views',
+AVG(Nr_of_Viewers) OVER (PARTITION BY Topic_Title) 'Average number of views',
 Topic_Title 'Topic'
-FROM Edition NATURAL JOIN Item WHERE ((unix_timestamp(Date_Time)<=unix_timestamp(Time_Item_Given))
-AND ((unix_timestamp(Date_Time)+Duration*60)>=unix_timestamp(Time_Item_Given)));
+FROM Item;
 
 CREATE VIEW viewsFromEdition AS
 SELECT
@@ -103,6 +103,13 @@ SELECT
     Item_Description 'Item with viewers'
 FROM Edition NATURAL JOIN Item WHERE ((unix_timestamp(Date_Time)<=unix_timestamp(Time_Item_Given))
     AND ((unix_timestamp(Date_Time)+(Duration*60))>=unix_timestamp(Time_Item_Given)));
+
+CREATE VIEW birthdayView AS
+SELECT
+    First_Name 'First name',
+    Last_Name 'Last name',
+    SUBSTRING(CPR,1,6) AS 'Birthday (DDMMYY)'
+FROM journalist;
 
 CREATE VIEW viewsFromItem AS
 SELECT
@@ -117,7 +124,7 @@ DISTINCTROW Topic_Title 'Topic title',
 AVG(Nr_of_Viewers) OVER (PARTITION BY Topic_Title) 'Average number of views'
 FROM Item;
 
-#THIS NOW WORKS
+
 CREATE VIEW workContactInfo AS
     SELECT
     First_Name,
@@ -127,8 +134,6 @@ CREATE VIEW workContactInfo AS
     FROM
         email NATURAL JOIN phone INNER JOIN journalist j ON Email.CPR = j.CPR
     WHERE (((Description_Phone) = 'WORK') AND (Description_Email = 'WORK'));
-
-
 
 
 DELIMITER //
