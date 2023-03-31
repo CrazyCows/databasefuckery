@@ -49,7 +49,10 @@ public class mySQLWriter {
             writer.dataLoader(loader.loadRoles("src/main/resources/Roles.csv"));
             writer.dataLoader(loader.loadItem("src/main/resources/item.csv"));
             writer.dataLoader(loader.loadFootage("src/main/resources/footageCSV.csv"));
-
+            writer.dataLoader(loader.loadFootage("src/main/resources/uploads.csv"));
+            //writer.dataLoader(loader.loadJournalistFromUploads("src/main/resources/uploads.csv"));
+            //This class was adding all the journalists from the file but that doesnt really work because there
+            //are duplicates and then we have to take that into account
 
         }
         catch(IOException e){
