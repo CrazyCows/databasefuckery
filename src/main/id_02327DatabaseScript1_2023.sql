@@ -140,14 +140,36 @@ DELIMITER ;
 
 
 DELIMITER //
-CREATE FUNCTION HighestViewersForTopic(topic_title VARCHAR(255))
-    RETURNS INT
-    DETERMINISTIC
+CREATE PROCEDURE journalist_role_count()
 BEGIN
-    DECLARE highest_viewers INT;
-    SELECT MAX(Nr_of_Viewers) INTO highest_viewers
-    FROM Item
-    WHERE Item.Topic_Title = topic_title;
-    RETURN highest_viewers;
+    SELECT
+        ### Sets the saved column name to "role"
+        Current_Roles AS role,
+        ### Counts the number of CPR numbers for each role. Sets the saved column name to "count"
+        COUNT(Journalist.CPR) AS count
+    FROM
+        Journalist
+            JOIN
+        ### Joins the journalists CPR with the roles CPR list
+            Roles ON Journalist.CPR = Roles.CPR
+    GROUP BY
+        ### Visual grouping
+        Roles.Current_Roles;
+END //
+DELIMITER ;
+
+
+DELIMITER //
+CREATE FUNCTION total_journalists_by_country(country_name VARCHAR(56))
+    RETURNS INT
+BEGIN
+    ### Declares the return type
+    DECLARE total_journalists INT;
+    ### Stores the count of journalists into total jounralists
+    SELECT COUNT(*) INTO total_journalists
+    FROM Journalist
+         ### Groups the jounrlists into countries
+    WHERE Country = country_name;
+    RETURN total_journalists;
 END //
 DELIMITER ;
