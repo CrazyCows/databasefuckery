@@ -142,8 +142,6 @@ BEGIN
 END //
 DELIMITER ;
 
-
-
 DELIMITER //
 CREATE PROCEDURE journalist_role_count()
 BEGIN
