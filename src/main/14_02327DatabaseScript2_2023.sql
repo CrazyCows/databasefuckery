@@ -9,3 +9,4 @@ SELECT * FROM viewsFromItem;
 SELECT * FROM viewsFromTopic;
 SELECT * FROM AVGViewsFromTopic;
 SELECT * FROM workContactInfo;
+SELECT * FROM birthdayview;
