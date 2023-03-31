@@ -81,12 +81,13 @@ SELECT Date_Time,
 Duration,
 Time_Item_Given,
 Nr_of_Viewers
-FROM Edition FULL JOIN Item WHERE ((unix_timestamp(Date_Time)<=unix_timestamp(Time_Item_Given)) AND ((unix_timestamp(Date_Time)+Duration)>=unix_timestamp(Time_Item_Given)));
+FROM Edition FULL JOIN Item WHERE ((unix_timestamp(Date_Time)<=unix_timestamp(Time_Item_Given))
+                                    AND ((unix_timestamp(Date_Time)+Duration)>=unix_timestamp(Time_Item_Given)));
 
 CREATE VIEW viewsFromTopic AS
 SELECT
-Nr_of_Viewers
-Topic_Title
+Nr_of_Viewers 'Number of views',
+Topic_Title 'Topic'
 FROM Edition NATURAL JOIN Item WHERE ((unix_timestamp(Date_Time)<=unix_timestamp(Time_Item_Given))
 AND ((unix_timestamp(Date_Time)+Duration)>=unix_timestamp(Time_Item_Given)));
 
@@ -106,11 +107,10 @@ SELECT
     Item_Description
 FROM Item;
 
-
-CREATE VIEW AVGviewsFromTopic AS
+CREATE VIEW AVGViewsFromTopic AS
 SELECT
-AVG(Nr_of_Viewers) 'Average number if viewers',
-Topic_Title 'Topic title'
+DISTINCTROW Topic_Title,
+AVG(Nr_of_Viewers) OVER (PARTITION BY Topic_Title)
 FROM Item;
 
 #THIS NOW WORKS
