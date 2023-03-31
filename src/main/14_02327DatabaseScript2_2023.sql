@@ -10,3 +10,6 @@ SELECT * FROM viewsFromTopic;
 SELECT * FROM AVGViewsFromTopic;
 SELECT * FROM workContactInfo;
 SELECT * FROM birthdayview;
+
+CALL journalist_role_count();
+SELECT total_journalists_by_country('Denmark');
