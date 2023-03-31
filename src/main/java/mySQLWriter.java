@@ -7,7 +7,7 @@ import java.sql.Statement;
 public class mySQLWriter {
     private static String url = "jdbc:mariadb://localhost:3306/tv3";
     private static String user_database = "root";
-    private static String password_database = "Studyhard1234.";
+    private static String password_database = "Anto2554!";
     private static Connection connection;
     private static Statement statement = null;
 
