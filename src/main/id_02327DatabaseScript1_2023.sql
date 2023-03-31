@@ -109,8 +109,8 @@ FROM Item;
 
 CREATE VIEW AVGViewsFromTopic AS
 SELECT
-DISTINCTROW Topic_Title,
-AVG(Nr_of_Viewers) OVER (PARTITION BY Topic_Title)
+DISTINCTROW Topic_Title 'Topic title',
+AVG(Nr_of_Viewers) OVER (PARTITION BY Topic_Title) 'Average number of views'
 FROM Item;
 
 #THIS NOW WORKS
