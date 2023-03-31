@@ -7,7 +7,6 @@ SELECT * FROM viewsFromTopic;
 SELECT * FROM viewsFromEdition;
 SELECT * FROM viewsFromItem;
 SELECT * FROM viewsFromTopic;
-SELECT * FROM viewsFromEdition;
 SELECT * FROM viewsFromItem;
-SELECT * FROM AVGviewsFromTopic;
+SELECT * FROM AVGViewsFromTopic;
 SELECT * FROM workContactInfo;
