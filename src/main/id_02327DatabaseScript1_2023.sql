@@ -105,13 +105,6 @@ Topic_Title
 FROM Edition NATURAL JOIN Item WHERE ((unix_timestamp(Date_Time)<=unix_timestamp(Time_Item_Given))
 AND ((unix_timestamp(Date_Time)+Duration)>=unix_timestamp(Time_Item_Given)));
 
-CREATE VIEW testingTest AS
-SELECT Date_Time,
-Duration,
-Time_Item_Given,
-Nr_of_Viewers
-FROM Edition FULL JOIN Item WHERE TIMESTAMPDIFF(SECOND, Date_Time, Time_Item_Given) > 0;
-
 
 CREATE VIEW viewsFromTopic AS
 SELECT
@@ -135,7 +128,7 @@ Nr_of_Viewers
 Topic_Title
 FROM Item;
 
-#DROP TRIGGER journalist_country_update;
+
 DELIMITER //
 CREATE TRIGGER journalist_country_update
 AFTER UPDATE ON Journalist
@@ -160,5 +153,4 @@ BEGIN
     WHERE Item.Topic_Title = topic_title;
     RETURN highest_viewers;
 END //
-
 DELIMITER ;
