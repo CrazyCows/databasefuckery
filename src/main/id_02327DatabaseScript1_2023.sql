@@ -96,7 +96,8 @@ CREATE VIEW viewsFromEdition AS
 SELECT
     Nr_of_Viewers 'Number of viewers',
     Date_Time 'Edition time aired',
-    Duration 'Duration (minutes)'
+    Duration 'Duration (minutes)',
+    Item_Description 'Item with viewers'
 FROM Edition NATURAL JOIN Item WHERE ((unix_timestamp(Date_Time)<=unix_timestamp(Time_Item_Given))
     AND ((unix_timestamp(Date_Time)+(Duration*60))>=unix_timestamp(Time_Item_Given)));
 
