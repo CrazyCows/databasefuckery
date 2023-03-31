@@ -91,7 +91,6 @@ Topic_Title 'Topic'
 FROM Edition NATURAL JOIN Item WHERE ((unix_timestamp(Date_Time)<=unix_timestamp(Time_Item_Given))
 AND ((unix_timestamp(Date_Time)+Duration*60)>=unix_timestamp(Time_Item_Given)));
 
-DROP VIEW viewsFromEdition;
 CREATE VIEW viewsFromEdition AS
 SELECT
     Nr_of_Viewers 'Number of viewers',
