@@ -137,7 +137,8 @@ CREATE VIEW workContactInfo AS
     WHERE (((Description_Phone) = 'WORK') AND (Description_Email = 'WORK'));
 
 
-DELIMITER //
+DELIMITER // #This is a pretty useless trigger, and is here to show how a triger works
+#rather than the practical application of one
 CREATE TRIGGER journalist_country_update
 AFTER UPDATE ON Journalist
 FOR EACH ROW
