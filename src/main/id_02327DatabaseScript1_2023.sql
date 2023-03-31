@@ -58,21 +58,6 @@ CREATE TABLE Email (
 
 
 
-
-DELIMITER //
-CREATE FUNCTION HighestViewersForTopic(topic_title VARCHAR(255))
-RETURNS INT
-DETERMINISTIC
-BEGIN
-  DECLARE highest_viewers INT;
-  SELECT MAX(Nr_of_Viewers) INTO highest_viewers
-  FROM Item
-  WHERE Topic_Title = topic_title;
-  RETURN highest_viewers;
-END //
-
-DELIMITER ;
-
 CREATE VIEW JournalListView AS
 SELECT * FROM Journalist;
 
@@ -127,6 +112,7 @@ Time_Item_Given,
 Nr_of_Viewers
 FROM Edition FULL JOIN Item WHERE TIMESTAMPDIFF(SECOND, Date_Time, Time_Item_Given) > 0;
 
+
 CREATE VIEW viewsFromTopic AS
 SELECT
 AVG(Nr_of_Viewers) 'Average number if viewers',
@@ -134,9 +120,6 @@ Topic_Title 'Topic title'
 FROM Item;
 
 
-
-
-#DROP VIEW viewsFromEdition;
 CREATE VIEW viewsFromEdition AS
 SELECT
 Nr_of_Viewers 'Number of viewers',
@@ -150,13 +133,7 @@ CREATE VIEW viewsFromItem AS
 SELECT
 Nr_of_Viewers
 Topic_Title
-FROM Edition NATURAL JOIN Item
-WHERE
-(true);
-
-update Journalist
-SET Country = 'USA'
-WHERE Country = 'USA2';
+FROM Item;
 
 #DROP TRIGGER journalist_country_update;
 DELIMITER //
@@ -168,4 +145,20 @@ BEGIN
     UPDATE Item SET Item_Description = NULL;
   END IF;
 END //
+DELIMITER ;
+
+
+
+DELIMITER //
+CREATE FUNCTION HighestViewersForTopic(topic_title VARCHAR(255))
+    RETURNS INT
+    DETERMINISTIC
+BEGIN
+    DECLARE highest_viewers INT;
+    SELECT MAX(Nr_of_Viewers) INTO highest_viewers
+    FROM Item
+    WHERE Item.Topic_Title = topic_title;
+    RETURN highest_viewers;
+END //
+
 DELIMITER ;
