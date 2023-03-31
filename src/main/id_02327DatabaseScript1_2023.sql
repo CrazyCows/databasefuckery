@@ -93,7 +93,8 @@ SELECT
 SUM(Nr_of_Viewers) OVER (PARTITION BY Topic_Title) 'Total number of views',
 AVG(Nr_of_Viewers) OVER (PARTITION BY Topic_Title) 'Average number of views',
 Topic_Title 'Topic'
-FROM Item;
+FROM Item
+GROUP BY (Topic_Title);
 
 CREATE VIEW viewsFromEdition AS
 SELECT
