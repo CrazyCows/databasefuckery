@@ -73,7 +73,11 @@ NATURAL JOIN Journalist;
 
 # Gives an overall view of an edition and its primary worker
 CREATE VIEW RoleViewModified AS
-SELECT First_Name, Current_Roles, Topic_title, Date_time, Duration
+SELECT First_Name 'First name',
+       Current_Roles 'Role',
+       Topic_title 'Topic title',
+       Date_time 'Time of broadcast',
+       Duration 'Duration (m)'
 FROM Roles NATURAL JOIN Edition NATURAL JOIN Journalist;
 
 CREATE VIEW EditionView AS
@@ -123,6 +127,7 @@ CREATE VIEW workContactInfo AS
     FROM
         email NATURAL JOIN phone INNER JOIN journalist j ON Email.CPR = j.CPR
     WHERE (((Description_Phone) = 'WORK') AND (Description_Email = 'WORK'));
+
 
 
 
