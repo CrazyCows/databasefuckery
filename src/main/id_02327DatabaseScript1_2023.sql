@@ -127,22 +127,22 @@ Time_Item_Given,
 Nr_of_Viewers
 FROM Edition FULL JOIN Item WHERE TIMESTAMPDIFF(SECOND, Date_Time, Time_Item_Given) > 0;
 
-SELECT * FROM viewsFromTopic
-
 CREATE VIEW viewsFromTopic AS
 SELECT
-AVG(Nr_of_Viewers)
-Topic_Title
-FROM Topic FULL JOIN Item;
-
-SELECT * FROM viewsFromEdition;
+AVG(Nr_of_Viewers) 'Average number if viewers',
+Topic_Title 'Topic title'
+FROM Item;
 
 
+
+
+#DROP VIEW viewsFromEdition;
 CREATE VIEW viewsFromEdition AS
 SELECT
-Nr_of_Viewers,
-Date_Time,
-Duration
+Nr_of_Viewers 'Number of viewers',
+Date_Time 'Edition time aired',
+Duration 'Duration',
+Item_Description
 FROM Edition NATURAL JOIN Item WHERE ((unix_timestamp(Date_Time)<=unix_timestamp(Time_Item_Given))
 AND ((unix_timestamp(Date_Time)+Duration)>=unix_timestamp(Time_Item_Given)));
 
@@ -150,21 +150,15 @@ CREATE VIEW viewsFromItem AS
 SELECT
 Nr_of_Viewers
 Topic_Title
-FROM Edition;
-
-set sql_safe_updates=0;
-
-SELECT * FROM viewsFromEdition;
+FROM Edition NATURAL JOIN Item
+WHERE
+(true);
 
 update Journalist
 SET Country = 'USA'
-WHERE Country = 'USA2'
+WHERE Country = 'USA2';
 
-SELECT * FROM Journalist;
-
-SELECT * FROM Item;
-
-DROP TRIGGER journalist_country_update;
+#DROP TRIGGER journalist_country_update;
 DELIMITER //
 CREATE TRIGGER journalist_country_update
 AFTER UPDATE ON Journalist
